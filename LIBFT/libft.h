@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:21:23 by sesquier          #+#    #+#             */
-/*   Updated: 2025/07/15 17:01:46 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:18:23 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <ctype.h>
 # include <stdarg.h>
 # include <fcntl.h>
+# include <stdbool.h>
 
 int		ft_atoi(const char *nptr);
 long	ft_atol(const char *str);

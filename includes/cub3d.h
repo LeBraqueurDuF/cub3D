@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:44 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/25 16:07:41 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:31:45 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,45 +30,63 @@
 
 typedef struct s_data
 {
-    void    *img;
-    char    *addr;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-}   t_data;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
 typedef struct s_map
 {
-    char    **grid;       // la carte en 2D (tableau de strings)
-    int     rows;         // nombre de lignes
-    int     cols;         // largeur max
-}   t_map;
+	char	**grid;       // la carte en 2D (tableau de strings)
+	int		rows;         // nombre de lignes
+	int		cols;         // largeur max
+}	t_map;
 
 typedef struct s_player
 {
-    double  x;            // position X dans la carte
-    double  y;            // position Y dans la carte
-    char    dir;          // direction initiale : N S E W
-}   t_player;
+	double	x;            // position X dans la carte
+	double	y;            // position Y dans la carte
+	char	dir;          // direction initiale : N S E W
+}	t_player;
 
 typedef struct s_config
 {
-    char    *no;          // chemins vers les textures
-    char    *so;
-    char    *we;
-    char    *ea;
-    int     floor[3];     // RGB sol
-    int     ceil[3];      // RGB plafond
+	char	*no;          // chemins vers les textures
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		floor[3];     // RGB sol
+	int		ceil[3];      // RGB plafond
 }   t_config;
 
 typedef struct s_game
 {
-    void        *mlx;
-    void        *win;
-    t_data      img;
-    t_map       map;
-    t_player    player;
-    t_config    config;
-}   t_game;
+	void		*mlx;
+	void		*win;
+	t_data		img;
+	t_map		map;
+	t_player	player;
+	t_config	config;
+}	t_game;
+
+typedef struct s_ray
+{
+	double  camera_x;
+	double  dir_x;
+	double  dir_y;
+	int     map_x;
+	int     map_y;
+	double  delta_dist_x;
+	double  delta_dist_y;
+	double  side_dist_x;
+	double  side_dist_y;
+	int     step_x;
+	int     step_y;
+	int     side;
+	double  wall_dist;
+	int     wall_height;
+}	t_ray;
 
 #endif

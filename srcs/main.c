@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:40 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/25 19:34:13 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:41:05 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int ac, char **av)
     game.img.img = mlx_new_image(game.mlx, 1920, 1080);
     game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel,
                         &game.img.line_length, &game.img.endian);
-    my_mlx_pixel_put(&game.img, 5, 5, 0x00FF0000);
+    my_mlx_pixel_put(&game.img, 5, 5, 0x00FF0000); // pb d'arguments ici
     mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
 	mlx_hook(game.win, 2, KeyPressMask, (int (*)(void))handle_keypress, &game);
 	mlx_hook(game.win, 17, StructureNotifyMask, (int (*)(void))handle_close, &game);

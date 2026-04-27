@@ -6,7 +6,7 @@
 #    By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:21:03 by sesquier          #+#    #+#              #
-#    Updated: 2025/06/27 16:45:11 by sesquier         ###   ########.fr        #
+#    Updated: 2026/04/27 15:34:31 by sesquier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,14 @@ GNL_DIR = get_next_line
 
 # Fichiers source
 SRCS_LIBFT = $(addprefix $(LIBFT_DIR)/, \
-    ft_atoi.c ft_atol.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
+    ft_atoi.c ft_atol.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
+    ft_isdigit.c ft_strnstr.c ft_strjoin.c ft_striteri.c \
     ft_isprint.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
-    ft_strchr.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c \
-    ft_strrchr.c ft_tolower.c ft_toupper.c ft_strdup.c ft_calloc.c ft_strjoin.c \
+    ft_strchr.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c \
+    ft_strrchr.c ft_tolower.c ft_toupper.c ft_strdup.c ft_calloc.c \
     ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c \
-    ft_strtrim.c ft_tolower.c ft_toupper.c ft_itoa.c ft_split.c ft_strmapi.c ft_striteri.c \
+    ft_strtrim.c ft_tolower.c ft_toupper.c ft_itoa.c ft_split.c ft_strmapi.c \
+    ft_is_whitespace.c ft_strcmp.c \
 )
 
 SRCS_BONUS = $(addprefix $(LIBFT_DIR)/, \
@@ -35,8 +37,8 @@ SRCS_BONUS = $(addprefix $(LIBFT_DIR)/, \
 
 SRCS_PRINTF = $(addprefix $(PRINTF_DIR)/, \
     ft_intputchar.c ft_intputlowhex.c ft_intputnbr.c ft_intputnbrbase.c \
-    ft_intputpadress.c ft_intputstr.c ft_intputunsignedint.c ft_intputupphex.c \
-    ft_printf.c \
+    ft_intputpadress.c ft_intputstr.c ft_intputunsignedint.c \
+    ft_intputupphex.c ft_printf.c \
 )
 
 SRCS_GNL = $(addprefix $(GNL_DIR)/, \
