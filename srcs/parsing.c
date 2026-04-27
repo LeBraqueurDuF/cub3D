@@ -6,23 +6,37 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 17:01:02 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/27 16:31:32 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/04/27 21:50:12 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_infos(t_game *game, char *idx, char *infos)
+// void	put_infos(t_game *game, char *idx, char *infos)
+// {
+// 	if (ft_strncmp(idx, "NO", 2) == 0)		game.config.no = infos;
+// 	else if (ft_strncmp(idx, "SO", 2) == 0)
+// 		game->config.so = infos;
+// 	else if (ft_strncmp(idx, "WE", 2) == 0)
+// 		game->config.we = infos;
+// 	else if (ft_strncmp(idx, "EA", 2) == 0)
+// 		game->config.ea = infos;
+// 	else
+// 		free(infos);
+// }
+
+void    put_infos(t_game *game, char *idx, char *infos)
 {
-	if (ft_strncmp(idx, "NO", 2) == 0)		game.config.no = infos;
-	else if (ft_strncmp(idx, "SO", 2) == 0)
-		game->config.so = infos;
-	else if (ft_strncmp(idx, "WE", 2) == 0)
-		game->config.we = infos;
-	else if (ft_strncmp(idx, "EA", 2) == 0)
-		game->config.ea = infos;
-	else
-		free(infos);
+    if (ft_strncmp(idx, "NO", 2) == 0)
+        game->north.path = infos;
+    else if (ft_strncmp(idx, "SO", 2) == 0)
+        game->south.path = infos;
+    else if (ft_strncmp(idx, "WE", 2) == 0)
+        game->west.path = infos;
+    else if (ft_strncmp(idx, "EA", 2) == 0)
+        game->east.path = infos;
+    else
+        free(infos);
 }
 
 void take_infos(t_game *game, char *line, char *idx)
@@ -38,21 +52,33 @@ void take_infos(t_game *game, char *line, char *idx)
 	i += ft_strlen(idx);
 	while (line[i] && (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13)))
 		i++;
-	while (line[i] && !ft_is_whitespace(line[i]))
+	while (line[i] && !ft_iswhitespace(line[i]))
    		infos[j++] = line[i++];
 	infos[j] = '\0';
 	put_infos(game, idx, ft_strdup(infos));
 }
 
-void	colors_infos(t_game *game, char *idx, char *num, int count)
-{
-	int	n;
+// void	colors_infos(t_game *game, char *idx, char *num, int count)
+// {
+// 	int	n;
 
-	n = ft_atoi(num);
-	if (idx[0] == 'F')
-		game->config.floor[count] = n;
-	else if (idx[0] == 'C')
-		game->config.ceil[count] = n;
+// 	n = ft_atoi(num);
+// 	if (idx[0] == 'F')
+// 		game->config.floor[count] = n;
+// 	else if (idx[0] == 'C')
+// 		game->config.ceil[count] = n;
+// }
+
+
+void    colors_infos(t_game *game, char *idx, char *num, int count)
+{
+    int n;
+
+    n = ft_atoi(num);
+    if (idx[0] == 'F')
+        game->floor_color[count] = n;
+    else if (idx[0] == 'C')
+        game->ceil_color[count] = n;
 }
 
 void	take_numbers(t_game *game, char *line, char *idx)
@@ -78,6 +104,8 @@ void	take_numbers(t_game *game, char *line, char *idx)
 		num[j] = '\0';
 		if (j > 0)
 			colors_infos(game, idx, num, ++count);
+		else
+			i++;
 		num[0] = 0;
 	}
 	
@@ -137,6 +165,7 @@ void parse(t_game *game, int ac, char **av)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	debug_game(game);
 }
 
 /*

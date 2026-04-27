@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_whitespace.c                                 :+:      :+:    :+:   */
+/*   ft_iswhitespace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 15:17:25 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/27 15:20:32 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/04/27 21:44:37 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-bool	ft_is_whitespace(char c)
+bool	ft_iswhitespace(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (true);

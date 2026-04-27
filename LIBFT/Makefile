@@ -6,7 +6,7 @@
 #    By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/28 11:21:03 by sesquier          #+#    #+#              #
-#    Updated: 2026/04/27 15:34:31 by sesquier         ###   ########.fr        #
+#    Updated: 2026/04/27 21:43:52 by sesquier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS_LIBFT = $(addprefix $(LIBFT_DIR)/, \
     ft_strrchr.c ft_tolower.c ft_toupper.c ft_strdup.c ft_calloc.c \
     ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c \
     ft_strtrim.c ft_tolower.c ft_toupper.c ft_itoa.c ft_split.c ft_strmapi.c \
-    ft_is_whitespace.c ft_strcmp.c \
+    ft_iswhitespace.c ft_strcmp.c \
 )
 
 SRCS_BONUS = $(addprefix $(LIBFT_DIR)/, \
