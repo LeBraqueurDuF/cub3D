@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:49:47 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/29 18:54:26 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/04/30 16:22:40 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,12 @@ static void fill_map_line(t_game *game, char *line, int row)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
+		if (line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
+		{
+			game->player.pos_x = i + 0.5;
+			game->player.pos_y = row + 0.5;
+		}
 		game->map.grid[row][i] = line[i];
 		i++;
 	}
