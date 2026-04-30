@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 10:47:55 by ale-coss          #+#    #+#             */
-/*   Updated: 2026/04/28 12:30:38 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/04/30 12:24:22 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,37 @@
 
 void   init_ray(t_game *game, t_ray *ray, int x)
 {
-    ray.camera_x = 2 * x / game.win_width;
-    ray.dir_x = game->player.pos_x + game->player.plan_x * camera_x;
-    ray.dir_y = game->player.pos_y + game->player.plan_y * camera_x;
-    ray.map_x = (int)game->player.pos_x;
-    ray.map_y = (int)game->player.pos_y;
-    if (ray.dir_x == 0)
-        ray.delta_dist_x = 1e30;
+    ray->camera_x = 2.0 * x / game->win_width - 1.0;
+    ray->dir_x = game->player.dir_x + game->player.plan_x * camera_x;
+    ray->dir_y = game->player.dir_y + game->player.plan_y * camera_x;
+    ray->map_x = (int)game->player.pos_x;
+    ray->map_y = (int)game->player.pos_y;
+    if (ray->dir_x == 0)
+        ray->delta_dist_x = 1e30;
     else
-        ray.delta_dist_x = |1 / ray.dir_x|;
-    if (ray.dir_y == 0)
-        ray.delta_dist_y = 1e30;
+        ray->delta_dist_x = fabs(1 / ray->dir_x); //fabs = fonction valeur absolue pour doubles
+    if (ray->dir_y == 0)
+        ray->delta_dist_y = 1e30;
     else
-        ray.delta_dist_y = |1 / ray.dir_y|
-    if (ray.dir_x > 0)
+        ray->delta_dist_y = fabs(1 / ray->dir_y);
+    if (ray->dir_x > 0)
     {
-        ray.step_x = 1;
-        ray.side_dist_x = (ray.map_x + 1 - game->player.pos_x) * ray.delta_dist_x
+        ray->step_x = 1;
+        ray->side_dist_x = (ray->map_x + 1 - game->player.pos_x) * ray->delta_dist_x
     }
     else
     {
-        ray.step_x = -1;
-        ray.side_dist_x = (game->player.pos_x - ray.map_x) * ray.delta_dist_x;
+        ray->step_x = -1;
+        ray->side_dist_x = (game->player.pos_x - ray->map_x) * ray->delta_dist_x;
     }
-    if (ray.dir_y > 0)
+    if (ray->dir_y > 0)
     {
-        ray.step_y = 1;
-        ray.side_dist_y = (ray.map_y + 1 - game->player.pos_y) * ray.delta_dist_y
+        ray->step_y = 1;
+        ray->side_dist_y = (ray->map_y + 1 - game->player.pos_y) * ray->delta_dist_y
     }
     else
     {
-        ray.step_y = -1;
-        ray.side_dist_y = (game->player.pos_y - ray.map_y) * ray.delta_dist_y;
+        ray->step_y = -1;
+        ray->side_dist_y = (game->player.pos_y - ray->map_y) * ray->delta_dist_y;
     }
 }
