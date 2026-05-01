@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:44 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/29 18:35:43 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/01 18:41:21 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,66 +27,15 @@
 
 # define WIDTH	2560
 # define HEIGHT	1440
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.03
 
-/*
-
-// Ancienne version des structures
-
-typedef struct s_data
-{
-	void    *img;
-	char    *addr;
-	int     bits_per_pixel;
-	int     line_length;
-	int     endian;
-}   t_data;
-
-typedef struct s_map
-{
-	char    **grid;       // la carte en 2D (tableau de strings)
-	int     rows;         // nombre de lignes
-	int     cols;         // largeur max
-}   t_map;
-
-typedef struct s_player
-{
-	double  x;            // position X dans la carte
-	double  y;            // position Y dans la carte
-	char    dir;          // direction initiale : N S E W
-}   t_player;
-
-typedef struct s_config
-{
-	char    *no;          // chemins vers les textures
-	char    *so;
-	char    *we;
-	char    *ea;
-	int     floor[3];     // RGB sol
-	int     ceil[3];      // RGB plafond
-}   t_config;
-
-typedef struct s_game
-{
-	void        *mlx;
-	void        *win;
-	t_data      img;
-	t_map       map;
-	t_player    player;
-	t_config    config;
-}   t_game;
-
-#endif
-
-*/
-
-// nouvelle version :
-
-typedef struct s_image  // remplace s_data
+typedef struct s_image
 {
 	void    *img_ptr;
 	char    *pixels;
 	int     bits_per_pixels;
-	int     line_lenth;
+	int     line_length;
 	int     endian;
 } t_image;
 
@@ -97,15 +46,15 @@ typedef struct s_map
 	int     height; // hauteur  
 } t_map;
 
-typedef struct s_texture    // remplace s_config
+typedef struct s_texture
 {
-	char    *path; //chemin vers la texture
+	char    *path;
 	void    *img_ptr;
 	char    *pixels;
-	int     width;
-	int     height;
+	int     tex_width;
+	int     tex_height;
 	int     bits_per_pixels;
-	int     line_lenth;
+	int     line_length;
 	int     endian;
 } t_texture;
 
@@ -114,7 +63,7 @@ typedef struct s_player
 	double  pos_x;  // position X dans la carte
 	double  pos_y;  // position Y dans la carte
 	char    dir;    // direction initiale : N S E W
-	double  dir_X;  // coord X vecteur dir
+	double  dir_x;  // coord X vecteur dir
 	double  dir_y;  // coord Y vecteur dir
 	double  plan_x; // coord X plan camera
 	double  plan_y; // coord Y plan camera
@@ -142,6 +91,10 @@ typedef struct s_ray
 	int     side; // 0 mur vertical touche, 1 mur horizontal touche
 	double  wall_dist; //distance finale au mur
 	int     wall_height; //hauteur de la bande a dessiner
+    double  wall_hit;
+    int     tex_col;
+    int     draw_start;
+    int     draw_end;
 } t_ray;
 
 typedef struct s_game
@@ -182,10 +135,42 @@ void    take_numbers(t_game *game, char *line, char *idx);
 // Init
 int     handle_close(void *param);
 int     handle_keypress(int keysym, void *param);
+int		handle_keyrelease(int keysym, void *param);
 void    my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void    init_texture(t_texture *tex);
 void    init_player(t_player *player);
 void    init_game(t_game *game);
+int     init_mlx(t_game *game);
+int    init_north(t_game *game);
+int    init_south(t_game *game);
+int    init_west(t_game *game);
+int    init_east(t_game *game);
+void	init_tex(t_game *game);
+void    init_player_vectors(t_game *game);
+
+// DDA
+void   init_ray(t_game *game, t_ray *ray, int x);
+void    dda_loop(t_game *game, t_ray *ray);
+void    calc_wall_dist(t_ray *ray);
+void    calc_wall_height(t_game *game, t_ray *ray);
+void    calc_text_col(t_ray *ray, t_texture *texture, t_game *game);
+t_texture   *choose_tex(t_game *game, t_ray *ray);
+int read_pix(t_texture *texture, int tex_col, int tex_row);
+void    write_pix(t_image *render, int x, int y, int color);
+void    draw_col(t_game *game, t_ray *ray, int x);
+int rgb_to_int(int *color);
+
+// Render
+void    cast_ray(t_game *game, t_ray *ray, int x);
+int render(void *param);
+
+void	move_forward(t_game *game);
+void	move_back(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	rotate_left(t_game *game);
+void	rotate_right(t_game *game);
+void	update_player(t_game *game, t_ray *ray);
 
 // Errors & debug
 void    err_incorrect_file(char *file);
