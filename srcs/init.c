@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:15:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 14:57:32 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:50:04 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,35 @@ int handle_keypress(int keysym, void *param)
     printf("keysym: %d\n", keysym);
     if (keysym == XK_Escape)
         handle_close(param);
+    if (keysym == XK_w)
+        param.player->move_forward == 1;
+    if (keysym == XK_s)
+        param.player->move_back == 1;
+    if (keysym == XK_a)
+        param.player->move_left == 1;
+    if (keysym == XK_w)
+        param.player->move_right == 1;
+    if (keysym == XK_Left)
+        param.player->rotate_left == 1;
+    if (keysym == XK_Right)
+        param.player->rotate_right == 1;
+    return (0);
+}
+
+int handle_keyrelease(int keysym, void *param)
+{
+    if (keysym == XK_w)
+        param.player->move_forward == 0;
+    if (keysym == XK_s)
+        param.player->move_back == 0;
+    if (keysym == XK_a)
+        param.player->move_left == 0;
+    if (keysym == XK_w)
+        param.player->move_right == 0;
+    if (keysym == XK_Left)
+        param.player->rotate_left == 0;
+    if (keysym == XK_Right)
+        param.player->rotate_right == 0;
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 19:37:07 by ale-coss          #+#    #+#             */
-/*   Updated: 2026/05/01 14:58:06 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:51:27 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 # define WIDTH	2560
 # define HEIGHT	1440
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.03
 
 typedef struct s_image  // remplace s_data
 {
@@ -113,13 +115,25 @@ typedef struct s_game
 } t_game;
 
 
+int     init_mlx(t_game *game);
 
-void    init_ray(t_game *game, t_ray *ray, int x);
+int     handle_keyrelease(int keysym, void *param);
+
 int     init_north(t_game *game);
 int     init_south(t_game *game);
 int     init_west(t_game *game);
 int     init_east(t_game *game);
 void	init_tex(t_game *game);
+
+void    init_ray(t_game *game, t_ray *ray, int x);
+
+void	move_forward(t_game *game);
+void	move_back(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	rotate_left(t_game *game);
+void	rotate_right(t_game *game);
+void	update_palyer(t_game *game);
 
 int     render(t_game *game);
 void    cast_ray(t_game *game, t_ray *ray);

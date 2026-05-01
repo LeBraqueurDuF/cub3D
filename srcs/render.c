@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 10:29:15 by ale-coss          #+#    #+#             */
-/*   Updated: 2026/04/30 15:53:42 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:59:57 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,4 @@ int render(t_game *game)
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
         game->render.img_ptr, 0, 0);
     return(0)
+}
