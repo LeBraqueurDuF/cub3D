@@ -6,7 +6,7 @@
 #    By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/21 15:26:47 by sesquier          #+#    #+#              #
-#    Updated: 2026/04/27 21:40:12 by sesquier         ###   ########.fr        #
+#    Updated: 2026/04/29 18:28:00 by sesquier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = cub3d
 LIBFT_DIR = LIBFT
 MINILIBX_DIR = minilibx-linux
 
-S_SRC = main.c init.c parsing.c errors.c
+S_SRC = main.c init.c parsing2.c parsing_utils.c errors.c
 D_SRC = srcs/
 
 S_OBJ = $(S_SRC:.c=.o)
