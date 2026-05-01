@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 10:29:15 by ale-coss          #+#    #+#             */
-/*   Updated: 2026/05/01 15:59:57 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/01 17:37:44 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,17 @@ void    cast_ray(t_game *game, t_ray *ray, int x)
     draw_col(game, ray, x);
 }
 
-int render(t_game *game)
+int render(void *param)
 {
     int     x;
     t_ray   ray;
+    t_game  *game;
 
     x = 0;
+    game = (t_game *)param;
     while (x < game->win_width)
     {
+        update_palyer(game);
         cast_ray(game, &ray, x);
         x++;
     }

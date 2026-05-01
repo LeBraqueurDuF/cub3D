@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 19:37:07 by ale-coss          #+#    #+#             */
-/*   Updated: 2026/05/01 16:51:27 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/01 17:38:05 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 void	update_palyer(t_game *game);
 
-int     render(t_game *game);
+int render(void *param);
 void    cast_ray(t_game *game, t_ray *ray);
 
 void    dda_loop(t_game *game, t_ray *ray);
