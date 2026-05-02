@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 18:20:52 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 18:43:09 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/02 18:18:23 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void    move_right(t_game *game)
         game->player.pos_y = new_pos_y;
 }
 
-void    rotate_left(t_game *game)
+void    rotate_right(t_game *game)
 {
     double  old_dir_x;
     double  old_plan_x;
@@ -77,7 +77,7 @@ void    rotate_left(t_game *game)
     game->player.plan_y = old_plan_x * sin(ROT_SPEED) + game->player.plan_y * cos(ROT_SPEED);
 }
 
-void    rotate_right(t_game *game)
+void    rotate_left(t_game *game)
 {
     double  old_dir_x;
     double  old_plan_x;

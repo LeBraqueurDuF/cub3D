@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:44 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 18:41:21 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/02 18:12:32 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 # define WIDTH	2560
 # define HEIGHT	1440
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.03
+# define MOVE_SPEED 0.00001
+# define ROT_SPEED 0.00001
 
 typedef struct s_image
 {

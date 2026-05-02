@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 15:58:05 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 18:01:59 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/02 18:32:25 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void    calc_wall_height(t_game *game, t_ray *ray)
 {
 	ray->wall_height = game->win_height / ray->wall_dist;
 	ray->draw_start = (game->win_height - ray->wall_height) / 2;
-	if (ray->draw_start < 0)
-		ray->draw_start = 0;
+	//Martin
+	// if (ray->draw_start < 0)
+		// ray->draw_start = 0;
 	ray->draw_end = (game->win_height + ray->wall_height) / 2;
 	if (ray->draw_end >= game->win_height)
 		ray->draw_end = game->win_height - 1;
@@ -120,7 +121,11 @@ void    draw_col(t_game *game, t_ray *ray, int x)
 		write_pix(&game->render, x, y, rgb_to_int(game->floor_color));
 		y++;
 	}
-	while (y <= ray->draw_end)
+	//Martin
+	// if (0 > ray->draw_start)
+		// y = -ray->draw_start;
+	// while (y <= ray->draw_end)
+	while (y <= ray->draw_end && y <= game->win_height)
 	{
 		relative_pos = y - ray->draw_start;
 		ratio = (double)relative_pos / (double)ray->wall_height;
