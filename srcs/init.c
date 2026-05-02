@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:15:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 17:56:48 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/02 20:12:38 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,36 @@ int handle_keypress(int keysym, void *param)
     t_game *game = (t_game *)param;
     if (keysym == XK_Escape)
         handle_close(param);
-    if (keysym == XK_w) game->player.move_forward = 1;
-    if (keysym == XK_s) game->player.move_back = 1;
-    if (keysym == XK_a) game->player.move_left = 1;
-    if (keysym == XK_d) game->player.move_right = 1;
-    if (keysym == XK_Left)  game->player.rotate_left = 1;
-    if (keysym == XK_Right) game->player.rotate_right = 1;
+    if (keysym == XK_w || keysym == XK_Up) 
+        game->player.move_forward = 1;
+    if (keysym == XK_s || keysym == XK_Down)
+        game->player.move_back = 1;
+    if (keysym == XK_a)
+        game->player.move_left = 1;
+    if (keysym == XK_d)
+        game->player.move_right = 1;
+    if (keysym == XK_Left)
+        game->player.rotate_left = 1;
+    if (keysym == XK_Right)
+        game->player.rotate_right = 1;
     return (0);
 }
 
 int handle_keyrelease(int keysym, void *param)
 {
     t_game *game = (t_game *)param;
-    if (keysym == XK_w) game->player.move_forward = 0;
-    if (keysym == XK_s) game->player.move_back = 0;
-    if (keysym == XK_a) game->player.move_left = 0;
-    if (keysym == XK_d) game->player.move_right = 0;
-    if (keysym == XK_Left)  game->player.rotate_left = 0;
-    if (keysym == XK_Right) game->player.rotate_right = 0;
+    if (keysym == XK_w || keysym == XK_Up)
+        game->player.move_forward = 0;
+    if (keysym == XK_s || keysym == XK_Down)
+        game->player.move_back = 0;
+    if (keysym == XK_a)
+        game->player.move_left = 0;
+    if (keysym == XK_d)
+        game->player.move_right = 0;
+    if (keysym == XK_Left)
+        game->player.rotate_left = 0;
+    if (keysym == XK_Right)
+        game->player.rotate_right = 0;
     return (0);
 }
 
@@ -182,12 +194,14 @@ int    init_east(t_game *game)
 	return (0);
 }
 
-void	init_tex(t_game *game)
+void    init_tex(t_game *game)
 {
-	init_north(game);
-	init_south(game);
-	init_west(game);
-	init_east(game);
+    if (init_north(game) || init_south(game)
+        || init_west(game) || init_east(game))
+    {
+        ft_putendl_fd("Error: failed to load texture", 2);
+        exit(EXIT_FAILURE);
+    }
 }
 
 void    init_player_vectors(t_game *game)
