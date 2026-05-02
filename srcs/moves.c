@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 18:20:52 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/02 18:18:23 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/02 19:42:09 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,26 @@ void    move_back(t_game *game)
         game->player.pos_y = new_pos_y;
 }
 
-void    move_left(t_game *game)
+void    move_right(t_game *game)
 {
     double  new_pos_x;
     double  new_pos_y;
 
-    new_pos_x = game->player.pos_x - game->player.plan_y * MOVE_SPEED;
-    new_pos_y = game->player.pos_y + game->player.plan_x * MOVE_SPEED;
+    new_pos_x = game->player.pos_x - game->player.dir_y * MOVE_SPEED;
+    new_pos_y = game->player.pos_y + game->player.dir_x * MOVE_SPEED;
     if (game->map.grid[(int)game->player.pos_y][(int)new_pos_x] != '1')
         game->player.pos_x = new_pos_x;
     if (game->map.grid[(int)new_pos_y][(int)game->player.pos_x] != '1')
         game->player.pos_y = new_pos_y;
 }
 
-void    move_right(t_game *game)
+void    move_left(t_game *game)
 {
     double  new_pos_x;
     double  new_pos_y;
 
-    new_pos_x = game->player.pos_x + game->player.plan_y * MOVE_SPEED;
-    new_pos_y = game->player.pos_y - game->player.plan_x * MOVE_SPEED;
+    new_pos_x = game->player.pos_x + game->player.dir_y * MOVE_SPEED;
+    new_pos_y = game->player.pos_y - game->player.dir_x * MOVE_SPEED;
     if (game->map.grid[(int)game->player.pos_y][(int)new_pos_x] != '1')
         game->player.pos_x = new_pos_x;
     if (game->map.grid[(int)new_pos_y][(int)game->player.pos_x] != '1')

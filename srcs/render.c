@@ -6,12 +6,11 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 15:59:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 18:41:34 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/02 19:43:10 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void    cast_ray(t_game *game, t_ray *ray, int x)
 {
