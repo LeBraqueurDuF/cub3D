@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:15:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/05 17:01:03 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/05 22:17:43 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,42 @@ int handle_keyrelease(int keysym, void *param)
     return (0);
 }
 
-// int handle_keypress(int keysym, void *param)
+// int handle_close(void *param)
 // {
-// 	printf("keysym: %d\n", keysym);
-// 	if (keysym == XK_Escape)
-// 		handle_close(param);
-// 	return (0);
+// 	t_game  *game;
+
+// 	game = (t_game *)param;
+// 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+// 	mlx_destroy_display(game->mlx_ptr);
+//     free_game(game);
+// 	exit(0);
 // }
 
 int handle_close(void *param)
 {
-	t_game  *game;
+    t_game  *game;
 
-	game = (t_game *)param;
-	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	mlx_destroy_display(game->mlx_ptr);
-	exit(0);
+    game = (t_game *)param;
+    // 1. D'abord les images (avant de fermer le display)
+    if (game->render.img_ptr)
+        mlx_destroy_image(game->mlx_ptr, game->render.img_ptr);
+    if (game->north.img_ptr)
+        mlx_destroy_image(game->mlx_ptr, game->north.img_ptr);
+    if (game->south.img_ptr)
+        mlx_destroy_image(game->mlx_ptr, game->south.img_ptr);
+    if (game->west.img_ptr)
+        mlx_destroy_image(game->mlx_ptr, game->west.img_ptr);
+    if (game->east.img_ptr)
+        mlx_destroy_image(game->mlx_ptr, game->east.img_ptr);
+    // 2. Ensuite la fenêtre
+    if (game->win_ptr)
+        mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+    // 3. Ensuite le display
+    mlx_destroy_display(game->mlx_ptr);
+    // 4. Enfin la mémoire non-MiniLibX
+    free(game->mlx_ptr);
+    free_game(game);
+    exit(0);
 }
 
 void    my_mlx_pixel_put(t_image *img, int x, int y, int color)

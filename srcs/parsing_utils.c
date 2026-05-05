@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:50:31 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/05 19:51:20 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/05 22:13:40 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ void    put_infos(t_game *game, char *idx, char *infos)
     if (ft_strncmp(idx, "NO", 2) == 0)
     {
 		game->north.path = infos;
-		free(infos);
+		// free(infos);
 	}
     else if (ft_strncmp(idx, "SO", 2) == 0)
     {
 		game->south.path = infos;
-		free(infos);
+		// free(infos);
 	}
     else if (ft_strncmp(idx, "WE", 2) == 0)
     {
 		game->west.path = infos;
-		free(infos);
+		// free(infos);
 	}
     else if (ft_strncmp(idx, "EA", 2) == 0)
     {
 		game->east.path = infos;
-		free(infos);
+		// free(infos);
 	}
     else
         free(infos);
@@ -102,21 +102,6 @@ void take_infos(t_game *game, char *line, char *idx)
 	put_infos(game, idx, ft_strdup(infos));
 }
 
-// void    check_config_complete(t_game *game)
-// {
-// 	if (!game->north.path || !game->south.path
-// 		|| !game->west.path || !game->east.path)
-// 	{
-// 		ft_putendl_fd("Error: missing texture path", 2);
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (game->floor_color[0] == -1 || game->ceil_color[0] == -1)
-// 	{
-// 		ft_putendl_fd("Error: missing floor or ceiling color", 2);
-// 		exit(EXIT_FAILURE);
-// 	}
-// }
-
 void    check_config_complete(t_game *game)
 {
     if (!game->north.path || !game->south.path
@@ -135,6 +120,7 @@ void    check_config_complete(t_game *game)
         || game->ceil_color[2] == -1)
     {
         ft_putendl_fd("Error: missing or invalid ceiling color", 2);
+		// free_game(game);
         exit(EXIT_FAILURE);
     }
 }
@@ -144,6 +130,7 @@ void    check_player(t_game *game)
 	if (game->player.dir == 0)
 	{
 		ft_putendl_fd("Error: no player found in map", 2);
+		// free_game(game);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -157,6 +144,7 @@ void    alloc_map(t_game *game)
 	if (!game->map.grid)
 	{
 		ft_putendl_fd("Error: malloc failed", 2);
+		// free_game(game);
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
@@ -166,6 +154,7 @@ void    alloc_map(t_game *game)
 		if (!game->map.grid[i])
 		{
 			ft_putendl_fd("Error: malloc failed", 2);
+			// free_game(game);
 			exit(EXIT_FAILURE);
 		}
 		ft_memset(game->map.grid[i], ' ', game->map.width);
@@ -207,6 +196,7 @@ void    check_map_closed(t_game *game)
 	if (!grid_copy)
 	{
 		ft_putendl_fd("Error: malloc failed", 2);
+		// free_game(game);
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
@@ -245,6 +235,7 @@ void    colors_infos(t_game *game, char *idx, char *num, int count)
     if (n < 0 || n > 255)
     {
         ft_putendl_fd("Error: RGB value out of range [0-255]", 2);
+		// free_game(game);
         exit(EXIT_FAILURE);
     }
     if (idx[0] == 'F')
@@ -252,62 +243,6 @@ void    colors_infos(t_game *game, char *idx, char *num, int count)
     else if (idx[0] == 'C')
         game->ceil_color[count] = n;
 }
-
-// static bool	check_colors(t_game *game)
-// {
-// 	int	count;
-
-// 	count = 0;
-// 	while (game->ceil_color[count])
-// 	{
-// 		if (game->ceil_color[count] == -1)
-// 			return (false);
-// 		count++;
-// 	}
-// 	count = 0;
-// 	while (game->floor_color[count])
-// 	{
-// 		if (game->floor_color[count] == -1)
-// 			return (false);
-// 		count++;
-// 	}
-// 	return (true);
-// }
-
-// void    take_numbers(t_game *game, char *line, char *idx)
-// {
-//     int     i;
-//     int     j;
-//     int     count;
-//     char    num[4];
-
-//     i = 0;
-//     count = 0;
-//     while (line[i] && line[i] != '\n' && !ft_isdigit(line[i])
-//         && line[i] != '-')
-//         i++;
-//     while (line[i] && line[i] != '\n' && count < 3)
-//     {
-//         if (!ft_isdigit(line[i]) && line[i] != ',' && ft_isalpha(line[i]))
-//         {
-//             ft_putendl_fd("Error: invalid character in color", 2);
-//             exit(EXIT_FAILURE);
-//         }
-//         j = 0;
-//         while (line[i] && ft_isdigit(line[i]) && j < 3)
-//             num[j++] = line[i++];
-//         num[j] = '\0';
-//         if (j > 0)
-//             colors_infos(game, idx, num, count++);
-//         while (line[i] && (line[i] == ',' || line[i] == ' '))
-//             i++;
-//     }
-// 	if (!check_colors(game))
-// 	{
-//         ft_putendl_fd("Error: invalid character in color", 2);
-//         exit(EXIT_FAILURE);
-//     }	
-// }
 
 void    take_numbers(t_game *game, char *line, char *idx)
 {
@@ -344,6 +279,7 @@ void    take_numbers(t_game *game, char *line, char *idx)
             && line[i] != ' ')
         {
             ft_putendl_fd("Error: invalid character in RGB value", 2);
+			// free_game(game);
             exit(EXIT_FAILURE);
         }
     }

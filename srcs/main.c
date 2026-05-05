@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:40 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/01 19:14:50 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/05 22:13:07 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int main(int ac, char **av)
     mlx_hook(game.win_ptr, 17, StructureNotifyMask, (int (*)(void))handle_close, &game);
     mlx_loop_hook(game.mlx_ptr, (int (*)(void))render, &game);
     mlx_loop(game.mlx_ptr);
+    // free_game(&game);
     return (0);
 }

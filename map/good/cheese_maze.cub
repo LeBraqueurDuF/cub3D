@@ -1,11 +1,11 @@
-NO ./textures/north.xpm
-SO ./textures/south.xpm
-WE ./textures/west.xpm
-EA ./textures/east.xpm
+NO ./textures/barney_1.xpm
+SO ./textures/gto.xpm
+WE ./textures/guy_1.xpm
+EA ./textures/naruto.xpm
 
 
 F 164,169,20
-C 204,255
+C 204,255,142
 
 
 

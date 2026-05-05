@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:44 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/02 18:12:32 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/05 22:07:53 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	update_player(t_game *game, t_ray *ray);
 
 // Errors & debug
 void    err_incorrect_file(char *file);
+void    free_game(t_game *game);
 void    debug_game(t_game *game);
 
 #endif
