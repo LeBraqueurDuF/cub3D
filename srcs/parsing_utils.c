@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:50:31 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/29 18:53:10 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:22:01 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,10 +208,36 @@ void    colors_infos(t_game *game, char *idx, char *num, int count)
     int n;
 
     n = ft_atoi(num);
+    if (n < 0 || n > 255)
+    {
+        ft_putendl_fd("Error: RGB value out of range [0-255]", 2);
+        exit(EXIT_FAILURE);
+    }
     if (idx[0] == 'F')
         game->floor_color[count] = n;
     else if (idx[0] == 'C')
         game->ceil_color[count] = n;
+}
+
+static bool	check_colors(t_game *game)
+{
+	int	count;
+
+	count = 0;
+	while (game->ceil_color[count])
+	{
+		if (game->ceil_color[count] == -1)
+			return (false);
+		count++;
+	}
+	count = 0;
+	while (game->floor_color[count])
+	{
+		if (game->floor_color[count] == -1)
+			return (false);
+		count++;
+	}
+	return (true);
 }
 
 void    take_numbers(t_game *game, char *line, char *idx)
@@ -223,15 +249,29 @@ void    take_numbers(t_game *game, char *line, char *idx)
 
     i = 0;
     count = 0;
+    while (line[i] && line[i] != '\n' && !ft_isdigit(line[i])
+        && line[i] != '-')
+        i++;
     while (line[i] && line[i] != '\n' && count < 3)
     {
-        while (line[i] && line[i] != '\n' && !ft_isdigit(line[i]))
-            i++;
+        if (!ft_isdigit(line[i]) && line[i] != ',' && ft_isalpha(line[i]))
+        {
+            ft_putendl_fd("Error: invalid character in color", 2);
+            exit(EXIT_FAILURE);
+        }
         j = 0;
         while (line[i] && ft_isdigit(line[i]) && j < 3)
             num[j++] = line[i++];
         num[j] = '\0';
         if (j > 0)
             colors_infos(game, idx, num, count++);
+        while (line[i] && (line[i] == ',' || line[i] == ' '))
+            i++;
     }
+	if (!check_colors(game))
+	{
+        ft_putendl_fd("Error: invalid character in color", 2);
+        exit(EXIT_FAILURE);
+    }
+		
 }

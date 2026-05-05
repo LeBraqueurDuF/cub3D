@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:15:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/02 20:12:38 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:01:03 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,12 +194,36 @@ int    init_east(t_game *game)
 	return (0);
 }
 
+// void    init_tex(t_game *game)
+// {
+//     if (init_north(game) || init_south(game)
+//         || init_west(game) || init_east(game))
+//     {
+//         ft_putendl_fd("Error: failed to load texture", 2);
+//         exit(EXIT_FAILURE);
+//     }
+// }
+
 void    init_tex(t_game *game)
 {
-    if (init_north(game) || init_south(game)
-        || init_west(game) || init_east(game))
+    if (init_north(game))
     {
-        ft_putendl_fd("Error: failed to load texture", 2);
+        ft_putendl_fd("Error: failed to load north texture", 2);
+        exit(EXIT_FAILURE);
+    }
+    if (init_south(game))
+    {
+        ft_putendl_fd("Error: failed to load south texture", 2);
+        exit(EXIT_FAILURE);
+    }
+    if (init_west(game))
+    {
+        ft_putendl_fd("Error: failed to load west texture", 2);
+        exit(EXIT_FAILURE);
+    }
+    if (init_east(game))
+    {
+        ft_putendl_fd("Error: failed to load east texture", 2);
         exit(EXIT_FAILURE);
     }
 }
