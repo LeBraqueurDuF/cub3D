@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:50:31 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/05 22:13:40 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:36:06 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,18 +185,57 @@ static void    flood_fill(char **grid, int x, int y, int width, int height)
 	flood_fill(grid, x, y - 1, width, height);
 }
 
-void    check_map_closed(t_game *game)
+// void    check_map_closed(t_game *game)
+// {
+// 	int     x;
+// 	int     y;
+// 	char    **grid_copy;
+// 	int     i;
+
+// 	grid_copy = malloc(sizeof(char *) * (game->map.height + 1));
+// 	if (!grid_copy)
+// 	{
+// 		ft_putendl_fd("Error: malloc failed", 2);
+// 		// free_game(game);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	i = 0;
+// 	while (i < game->map.height)
+// 	{
+// 		grid_copy[i] = ft_strdup(game->map.grid[i]);
+// 		i++;
+// 	}
+// 	grid_copy[game->map.height] = NULL;
+// 	y = 0;
+// 	while (y < game->map.height)
+// 	{
+// 		x = 0;
+// 		while (x < game->map.width)
+// 		{
+// 			if (ft_strchr("NSEW", grid_copy[y][x]))
+// 			{
+// 				flood_fill(grid_copy, x, y, game->map.width, game->map.height);
+// 				i = 0;
+// 				while (grid_copy[i])
+// 					free(grid_copy[i++]);
+// 				free(grid_copy);
+// 				return ;
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+static char	**alloc_grid_copy(t_game *game)
 {
-	int     x;
-	int     y;
-	char    **grid_copy;
-	int     i;
+	char	**grid_copy;
+	int		i;
 
 	grid_copy = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!grid_copy)
 	{
 		ft_putendl_fd("Error: malloc failed", 2);
-		// free_game(game);
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
@@ -206,6 +245,15 @@ void    check_map_closed(t_game *game)
 		i++;
 	}
 	grid_copy[game->map.height] = NULL;
+	return (grid_copy);
+}
+
+static void	find_and_flood(t_game *game, char **grid_copy)
+{
+	int	x;
+	int	y;
+	int	i;
+
 	y = 0;
 	while (y < game->map.height)
 	{
@@ -214,7 +262,8 @@ void    check_map_closed(t_game *game)
 		{
 			if (ft_strchr("NSEW", grid_copy[y][x]))
 			{
-				flood_fill(grid_copy, x, y, game->map.width, game->map.height);
+				flood_fill(grid_copy, x, y,
+					game->map.width, game->map.height);
 				i = 0;
 				while (grid_copy[i])
 					free(grid_copy[i++]);
@@ -225,6 +274,14 @@ void    check_map_closed(t_game *game)
 		}
 		y++;
 	}
+}
+
+void	check_map_closed(t_game *game)
+{
+	char	**grid_copy;
+
+	grid_copy = alloc_grid_copy(game);
+	find_and_flood(game, grid_copy);
 }
 
 void    colors_infos(t_game *game, char *idx, char *num, int count)
@@ -244,43 +301,88 @@ void    colors_infos(t_game *game, char *idx, char *num, int count)
         game->ceil_color[count] = n;
 }
 
-void    take_numbers(t_game *game, char *line, char *idx)
-{
-    int     i;
-    int     j;
-    int     count;
-    char    num[4];
+// void    take_numbers(t_game *game, char *line, char *idx)
+// {
+//     int     i;
+//     int     j;
+//     int     count;
+//     char    num[4];
 
-    i = 0;
-    count = 0;
-    while (line[i] && line[i] != '\n' && line[i] != ' '
-        && line[i] != idx[0])
-        i++;
-    if (line[i] == idx[0])
-        i++;
-    while (line[i] && line[i] != '\n' && count < 3)
-    {
-        while (line[i] == ' ' || line[i] == ',')
-            i++;
-        if (!line[i] || line[i] == '\n')
-            break ;
-        if (!ft_isdigit(line[i]))
-        {
-            ft_putendl_fd("Error: invalid character in RGB value", 2);
-            exit(EXIT_FAILURE);
-        }
-        j = 0;
-        while (line[i] && ft_isdigit(line[i]) && j < 3)
-            num[j++] = line[i++];
-        num[j] = '\0';
-        if (j > 0)
-            colors_infos(game, idx, num, count++);
-        if (line[i] && line[i] != '\n' && line[i] != ','
-            && line[i] != ' ')
-        {
-            ft_putendl_fd("Error: invalid character in RGB value", 2);
-			// free_game(game);
-            exit(EXIT_FAILURE);
-        }
-    }
+//     i = 0;
+//     count = 0;
+//     while (line[i] && line[i] != '\n' && line[i] != ' '
+//         && line[i] != idx[0])
+//         i++;
+//     if (line[i] == idx[0])
+//         i++;
+//     while (line[i] && line[i] != '\n' && count < 3)
+//     {
+//         while (line[i] == ' ' || line[i] == ',')
+//             i++;
+//         if (!line[i] || line[i] == '\n')
+//             break ;
+//         if (!ft_isdigit(line[i]))
+//         {
+//             ft_putendl_fd("Error: invalid character in RGB value", 2);
+//             exit(EXIT_FAILURE);
+//         }
+//         j = 0;
+//         while (line[i] && ft_isdigit(line[i]) && j < 3)
+//             num[j++] = line[i++];
+//         num[j] = '\0';
+//         if (j > 0)
+//             colors_infos(game, idx, num, count++);
+//         if (line[i] && line[i] != '\n' && line[i] != ','
+//             && line[i] != ' ')
+//         {
+//             ft_putendl_fd("Error: invalid character in RGB value", 2);
+// 			// free_game(game);
+//             exit(EXIT_FAILURE);
+//         }
+//     }
+// }
+
+static int	read_num_token(char *line, int i, char *num)
+{
+	int	j;
+
+	j = 0;
+	while (line[i] && ft_isdigit(line[i]) && j < 3)
+		num[j++] = line[i++];
+	num[j] = '\0';
+	if (line[i] && line[i] != '\n' && line[i] != ',' && line[i] != ' ')
+	{
+		ft_putendl_fd("Error: invalid character in RGB value", 2);
+		exit(EXIT_FAILURE);
+	}
+	return (i);
+}
+
+void	take_numbers(t_game *game, char *line, char *idx)
+{
+	int		i;
+	int		count;
+	char	num[4];
+
+	i = 0;
+	count = 0;
+	while (line[i] && line[i] != '\n' && line[i] != ' ' && line[i] != idx[0])
+		i++;
+	if (line[i] == idx[0])
+		i++;
+	while (line[i] && line[i] != '\n' && count < 3)
+	{
+		while (line[i] == ' ' || line[i] == ',')
+			i++;
+		if (!line[i] || line[i] == '\n')
+			break ;
+		if (!ft_isdigit(line[i]))
+		{
+			ft_putendl_fd("Error: invalid character in RGB value", 2);
+			exit(EXIT_FAILURE);
+		}
+		i = read_num_token(line, i, num);
+		if (num[0])
+			colors_infos(game, idx, num, count++);
+	}
 }

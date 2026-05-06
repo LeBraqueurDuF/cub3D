@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 19:01:06 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/05 22:16:16 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:00:26 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,6 @@ void    err_incorrect_file(char *file)
     ft_putendl_fd(file, 2);
     exit(EXIT_FAILURE);
 }
-
-// void    free_game(t_game *game)
-// {
-//     int i;
-
-//     free(game->north.path);
-//     free(game->south.path);
-//     free(game->west.path);
-//     free(game->east.path);
-//     if (game->map.grid)
-//     {
-//         i = 0;
-//         while (game->map.grid[i])
-//             free(game->map.grid[i++]);
-//         free(game->map.grid);
-//     }
-//     if (game->mlx_ptr)
-//     {
-//         if (game->north.img_ptr)
-//             mlx_destroy_image(game->mlx_ptr, game->north.img_ptr);
-//         if (game->south.img_ptr)
-//             mlx_destroy_image(game->mlx_ptr, game->south.img_ptr);
-//         if (game->west.img_ptr)
-//             mlx_destroy_image(game->mlx_ptr, game->west.img_ptr);
-//         if (game->east.img_ptr)
-//             mlx_destroy_image(game->mlx_ptr, game->east.img_ptr);
-//         if (game->render.img_ptr)
-//             mlx_destroy_image(game->mlx_ptr, game->render.img_ptr);
-//         if (game->win_ptr)
-//             mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-//         mlx_destroy_display(game->mlx_ptr);
-//         free(game->mlx_ptr);
-//     }
-// }
 
 void    free_game(t_game *game)
 {

@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:49:47 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/05 19:41:11 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:34:59 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,11 @@ void parse(t_game *game, int ac, char **av)
 	}
 	file_name_checker(av[1]);
 	parse_pass1(game, av[1]);
-	// printf("pass1 done\n");
 	check_config_complete(game);
-	// printf("config ok\n");
 	check_player(game);
-	// printf("player ok\n");
 	alloc_map(game);
-	// printf("alloc ok\n");
 	parse_pass2(game, av[1]);
-	// printf("pass2 done\n");
 	check_map_closed(game);
-	// printf("map closed ok\n");
 	debug_game(game);
 }
 
@@ -99,21 +93,45 @@ void line_parser(char *line, t_game *game)
 		take_numbers(game, line + start, "C");
 }
 
-void parse_pass1(t_game *game, char *file)
+// void parse_pass1(t_game *game, char *file)
+// {
+// 	int fd;
+// 	char *line;
+// 	bool map_started;
+
+// 	map_started = false;
+// 	fd = open(file, O_RDONLY);
+// 	if (fd == -1)
+// 		err_incorrect_file(file);
+// 	line = get_next_line(fd);
+// 	while (line)
+// 	{
+// 		if (!map_started && is_map_line(line))
+// 			map_started = true;
+// 		if (map_started)
+// 			process_map_line(game, line);
+// 		else
+// 			line_parser(line, game);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	while (line)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	close(fd);
+// }
+
+static void	process_lines_pass1(t_game *game, int fd)
 {
-	int fd;
-	char *line;
-	bool map_started;
+	char	*line;
+	bool	map_started;
 
 	map_started = false;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		err_incorrect_file(file);
 	line = get_next_line(fd);
 	while (line)
 	{
-		// printf("LINE: [%s] map_started=%d is_map=%d\n", 
-			// line, map_started, is_map_line(line));
 		if (!map_started && is_map_line(line))
 			map_started = true;
 		if (map_started)
@@ -123,11 +141,16 @@ void parse_pass1(t_game *game, char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
+}
+
+void	parse_pass1(t_game *game, char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		err_incorrect_file(file);
+	process_lines_pass1(game, fd);
 	close(fd);
 }
 
@@ -150,18 +173,47 @@ static void fill_map_line(t_game *game, char *line, int row)
 	}
 }
 
-void parse_pass2(t_game *game, char *file)
+// void parse_pass2(t_game *game, char *file)
+// {
+// 	int fd;
+// 	char *line;
+// 	bool map_started;
+// 	int row;
+
+// 	map_started = false;
+// 	row = 0;
+// 	fd = open(file, O_RDONLY);
+// 	if (fd == -1)
+// 		err_incorrect_file(file);
+// 	line = get_next_line(fd);
+// 	while (line)
+// 	{
+// 		if (!map_started && is_map_line(line))
+// 			map_started = true;
+// 		if (map_started)
+// 		{
+// 			fill_map_line(game, line, row);
+// 			row++;
+// 		}
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	while (line)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	close(fd);
+// }
+
+static void	process_lines_pass2(t_game *game, int fd)
 {
-	int fd;
-	char *line;
-	bool map_started;
-	int row;
+	char	*line;
+	bool	map_started;
+	int		row;
 
 	map_started = false;
 	row = 0;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		err_incorrect_file(file);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -175,10 +227,15 @@ void parse_pass2(t_game *game, char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
+}
+
+void	parse_pass2(t_game *game, char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		err_incorrect_file(file);
+	process_lines_pass2(game, fd);
 	close(fd);
 }

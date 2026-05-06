@@ -6,7 +6,7 @@
 #    By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/21 15:26:47 by sesquier          #+#    #+#              #
-#    Updated: 2026/05/05 19:08:09 by sesquier         ###   ########.fr        #
+#    Updated: 2026/05/06 11:48:31 by sesquier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT_DIR = LIBFT
 MINILIBX_DIR = minilibx-linux
 
 S_SRC = main.c init.c parsing.c parsing_utils.c dda_loop.c init_ray.c \
-		render.c moves.c errors.c
+		render.c moves.c errors.c dda_loop2.c dda_loop3.c
 D_SRC = srcs/
 
 S_OBJ = $(S_SRC:.c=.o)
