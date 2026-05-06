@@ -1,0 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils3.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/06 17:11:46 by sesquier          #+#    #+#             */
+/*   Updated: 2026/05/06 17:58:55 by sesquier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+static void	flood_fill(t_flood *f, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= f->width || y >= f->height)
+	{
+		ft_putendl_fd("Error: map is not closed", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (f->grid[y][x] == '1' || f->grid[y][x] == 'V')
+		return ;
+	if (f->grid[y][x] == ' ')
+	{
+		ft_putendl_fd("Error: map is not closed", 2);
+		exit(EXIT_FAILURE);
+	}
+	f->grid[y][x] = 'V';
+	flood_fill(f, x + 1, y);
+	flood_fill(f, x - 1, y);
+	flood_fill(f, x, y + 1);
+	flood_fill(f, x, y - 1);
+}
+
+static void	free_grid(char **grid)
+{
+	int	i;
+
+	i = 0;
+	while (grid[i])
+		free(grid[i++]);
+	free(grid);
+}
+
+static void	search_and_flood(t_flood *f, char **grid_copy)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < f->height)
+	{
+		x = 0;
+		while (x < f->width)
+		{
+			if (ft_strchr("NSEW", grid_copy[y][x]))
+			{
+				flood_fill(f, x, y);
+				free_grid(grid_copy);
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+static void	find_and_flood(t_game *game, char **grid_copy)
+{
+	t_flood	f;
+
+	f.grid = grid_copy;
+	f.width = game->map.width;
+	f.height = game->map.height;
+	search_and_flood(&f, grid_copy);
+}
+
+void	check_map_closed(t_game *game)
+{
+	char	**grid_copy;
+
+	grid_copy = alloc_grid_copy(game);
+	find_and_flood(game, grid_copy);
+}

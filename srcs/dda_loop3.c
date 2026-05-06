@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 11:43:25 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/06 11:49:11 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:20:21 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ static void	draw_wall(t_game *game, t_ray *ray, t_texture *tex, int x)
 	double	ratio;
 	int		tex_row;
 
-	y = ray->draw_start < 0 ? 0 : ray->draw_start;
+	if (ray->draw_start < 0)
+		y = 0;
+	else
+		y = ray->draw_start;
 	while (y <= ray->draw_end && y < game->win_height)
 	{
 		relative_pos = y - ray->draw_start;

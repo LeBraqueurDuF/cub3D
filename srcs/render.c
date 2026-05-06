@@ -6,36 +6,39 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 15:59:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/02 19:43:10 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:07:12 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    cast_ray(t_game *game, t_ray *ray, int x)
+void	cast_ray(t_game *game, t_ray *ray, int x)
 {
-    init_ray(game, ray, x);
-    dda_loop(game, ray);
-    calc_wall_dist(ray);
-    calc_wall_height(game,ray);
-    draw_col(game, ray, x);
+	init_ray(game, ray, x);
+	dda_loop(game, ray);
+	calc_wall_dist(ray);
+	calc_wall_height(game, ray);
+	draw_col(game, ray, x);
 }
 
-int render(void *param)
+int	render(void *param)
 {
-    int     x;
-    t_ray   ray;
-    t_game  *game;
+	int		x;
+	t_ray	ray;
+	t_game	*game;
+	double	current;
 
-    x = 0;
-    game = (t_game *)param;
-    while (x < game->win_width)
-    {
-        update_player(game, &ray);
-        cast_ray(game, &ray, x);
-        x++;
-    }
-    mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-        game->render.img_ptr, 0, 0);
-    return(0);
+	x = 0;
+	game = (t_game *)param;
+	while (x < game->win_width)
+	{
+		current = get_current_time();
+		set_delta_time(game, current);
+		update_player(game);
+		cast_ray(game, &ray, x);
+		x++;
+	}
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
+		game->render.img_ptr, 0, 0);
+	return (0);
 }

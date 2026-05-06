@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:44 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/05 22:07:53 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:14:26 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
+# include <sys/time.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "../minilibx-linux/mlx.h"
@@ -27,17 +28,18 @@
 
 # define WIDTH	2560
 # define HEIGHT	1440
-# define MOVE_SPEED 0.00001
-# define ROT_SPEED 0.00001
+# define MOVE_SPEED 3.0
+# define ROT_SPEED 3.0
+# define WALL_MARGIN 0.2
 
 typedef struct s_image
 {
-	void    *img_ptr;
-	char    *pixels;
-	int     bits_per_pixels;
-	int     line_length;
-	int     endian;
-} t_image;
+	void	*img_ptr;
+	char	*pixels;
+	int		bits_per_pixels;
+	int		line_length;
+	int		endian;
+}	t_image;
 
 typedef struct s_map
 {
@@ -45,6 +47,13 @@ typedef struct s_map
 	int     width; // largeur
 	int     height; // hauteur  
 } t_map;
+
+typedef struct s_flood
+{
+	char    **grid;
+	int     width;
+	int     height;
+}   t_flood;
 
 typedef struct s_texture
 {
@@ -91,10 +100,10 @@ typedef struct s_ray
 	int     side; // 0 mur vertical touche, 1 mur horizontal touche
 	double  wall_dist; //distance finale au mur
 	int     wall_height; //hauteur de la bande a dessiner
-    double  wall_hit;
-    int     tex_col;
-    int     draw_start;
-    int     draw_end;
+	double  wall_hit;
+	int     tex_col;
+	int     draw_start;
+	int     draw_end;
 } t_ray;
 
 typedef struct s_game
@@ -112,6 +121,8 @@ typedef struct s_game
 	int         ceil_color[3]; //modifie en 3 pour RGB
 	t_map       map;
 	t_player    player;
+	double		last_time;
+	double		delta_time;
 } t_game;
 
 // Parsing
@@ -129,8 +140,9 @@ void    alloc_map(t_game *game);
 void    check_map_closed(t_game *game);
 void    colors_infos(t_game *game, char *idx, char *num, int count);
 void    take_numbers(t_game *game, char *line, char *idx);
-// void    file_name_checker(char *file);
-// void    parse(t_game *game, int ac, char **av);
+void	fill_map_line(t_game *game, char *line, int row);
+void	process_lines_pass2(t_game *game, int fd);
+int	skip_spaces(char *line);
 
 // Init
 int     handle_close(void *param);
@@ -147,6 +159,8 @@ int    init_west(t_game *game);
 int    init_east(t_game *game);
 void	init_tex(t_game *game);
 void    init_player_vectors(t_game *game);
+double	get_current_time(void);
+void set_delta_time(t_game *game, double current);
 
 // DDA
 void   init_ray(t_game *game, t_ray *ray, int x);
@@ -159,6 +173,7 @@ int read_pix(t_texture *texture, int tex_col, int tex_row);
 void    write_pix(t_image *render, int x, int y, int color);
 void    draw_col(t_game *game, t_ray *ray, int x);
 int rgb_to_int(int *color);
+char	**alloc_grid_copy(t_game *game);
 
 // Render
 void    cast_ray(t_game *game, t_ray *ray, int x);
@@ -170,7 +185,7 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
-void	update_player(t_game *game, t_ray *ray);
+void	update_player(t_game *game);
 
 // Errors & debug
 void    err_incorrect_file(char *file);

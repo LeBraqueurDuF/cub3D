@@ -6,7 +6,7 @@
 #    By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/21 15:26:47 by sesquier          #+#    #+#              #
-#    Updated: 2026/05/06 11:48:31 by sesquier         ###   ########.fr        #
+#    Updated: 2026/05/06 18:10:30 by sesquier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ LIBFT_DIR = LIBFT
 MINILIBX_DIR = minilibx-linux
 
 S_SRC = main.c init.c parsing.c parsing_utils.c dda_loop.c init_ray.c \
-		render.c moves.c errors.c dda_loop2.c dda_loop3.c
+		render.c moves.c moves2.c errors.c dda_loop2.c dda_loop3.c \
+		init2.c init3.c init4.c utils.c parsing_utils2.c parsing_utils3.c \
+		parsing_utils4.c parsing2.c
 D_SRC = srcs/
 
 S_OBJ = $(S_SRC:.c=.o)
@@ -24,9 +26,10 @@ D_OBJ = .build/
 OBJ = $(addprefix $(D_OBJ), $(S_OBJ))
 
 CC = cc
-CFLAGS = -O3 -march=native -funroll-loops -flto
+CFLAGS = -Wall -Wextra -Werror -Wno-cast-function-type \
+		-O3 -march=native -funroll-loops -flto
 
-#-Wall -Wextra -Werror
+#
 
 LIBFT = $(LIBFT_DIR)/libft.a
 MINILIBX = $(MINILIBX_DIR)/libmlx_Linux.a

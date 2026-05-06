@@ -6,7 +6,7 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 15:58:05 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/06 11:43:17 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:42:06 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ t_texture	*choose_tex(t_game *game, t_ray *ray)
 		else
 			return (&game->south);
 	}
+	return (NULL);
 }
