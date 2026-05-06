@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 10:29:15 by ale-coss          #+#    #+#             */
-/*   Updated: 2026/05/01 17:37:44 by ale-coss         ###   ########.fr       */
+/*   Created: 2026/05/01 15:59:21 by sesquier          #+#    #+#             */
+/*   Updated: 2026/05/06 14:15:41 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,19 @@ int render(void *param)
     int     x;
     t_ray   ray;
     t_game  *game;
+    double  current;
 
     x = 0;
     game = (t_game *)param;
     while (x < game->win_width)
     {
-        update_palyer(game);
+        current = get_current_time();
+        set_delta_time(game, current);
+        update_player(game, &ray);
         cast_ray(game, &ray, x);
         x++;
     }
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
         game->render.img_ptr, 0, 0);
-    return(0)
+    return(0);
 }
