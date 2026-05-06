@@ -1,11 +1,11 @@
-NO ./textures/simonkraft/wet_sponge.xpm
-SO ./textures/simonkraft/wet_sponge.xpm
-WE ./textures/simonkraft/wet_sponge.xpm
-EA ./textures/simonkraft/wet_sponge.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
 
 
-F 164,169,20
-C 153,204,255
+F 58,52,60
+C 34,30,44
 
 
 
@@ -21,7 +21,7 @@ C 153,204,255
 101011111010111110101
 101010001010100010101
 101110101010101010101
-100000101010001010001
+10000010100000010001010001
 111111101011111011101
 100000101000100010001
 101110101110101110111

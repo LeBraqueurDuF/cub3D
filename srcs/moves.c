@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 18:20:52 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/06 14:49:57 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:37:49 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void    move_back(t_game *game)
     speed = MOVE_SPEED * game->delta_time;
     new_pos_x = game->player.pos_x - game->player.dir_x * speed;
     new_pos_y = game->player.pos_y - game->player.dir_y * speed;
-    if (game->map.grid[(int)game->player.pos_y][(int)(new_pos_x + game->player.dir_x * WALL_MARGIN)] != '1')
+    if (game->map.grid[(int)game->player.pos_y][(int)(new_pos_x - game->player.dir_x * WALL_MARGIN)] != '1')
         game->player.pos_x = new_pos_x;
-    if (game->map.grid[(int)(new_pos_y + game->player.dir_x * WALL_MARGIN)][(int)game->player.pos_x] != '1')
+    if (game->map.grid[(int)(new_pos_y - game->player.dir_y * WALL_MARGIN)][(int)game->player.pos_x] != '1')
         game->player.pos_y = new_pos_y;
 }
 
