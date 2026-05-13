@@ -6,15 +6,15 @@
 /*   By: sesquier <sesquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 14:37:12 by sesquier          #+#    #+#             */
-/*   Updated: 2026/04/27 15:17:45 by sesquier         ###   ########.fr       */
+/*   Updated: 2026/05/13 17:45:40 by sesquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] || s2[i])
