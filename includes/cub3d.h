@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:26:44 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/06 14:17:38 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:56:16 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define HEIGHT	1440
 # define MOVE_SPEED 3.0
 # define ROT_SPEED 3.0
-# define WALL_MARGIN 0.2
+# define PLAYER_RADIUS 0.2
 
 typedef struct s_image
 {
@@ -170,6 +170,7 @@ int rgb_to_int(int *color);
 void    cast_ray(t_game *game, t_ray *ray, int x);
 int render(void *param);
 
+int    is_walkable(t_game *game, double x, double y);
 void	move_forward(t_game *game);
 void	move_back(t_game *game);
 void	move_left(t_game *game);

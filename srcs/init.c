@@ -6,7 +6,7 @@
 /*   By: ale-coss <ale-coss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 15:15:21 by sesquier          #+#    #+#             */
-/*   Updated: 2026/05/06 14:09:59 by ale-coss         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:17:26 by ale-coss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int handle_keypress(int keysym, void *param)
     if (keysym == XK_d) game->player.move_right = 1;
     if (keysym == XK_Left)  game->player.rotate_left = 1;
     if (keysym == XK_Right) game->player.rotate_right = 1;
+	if (keysym == XK_Up) game->player.move_forward = 1;
+    if (keysym == XK_Down) game->player.move_back = 1;
     return (0);
 }
 
@@ -35,6 +37,8 @@ int handle_keyrelease(int keysym, void *param)
     if (keysym == XK_d) game->player.move_right = 0;
     if (keysym == XK_Left)  game->player.rotate_left = 0;
     if (keysym == XK_Right) game->player.rotate_right = 0;
+	if (keysym == XK_Up) game->player.move_forward = 0;
+    if (keysym == XK_Down) game->player.move_back = 0;
     return (0);
 }
 

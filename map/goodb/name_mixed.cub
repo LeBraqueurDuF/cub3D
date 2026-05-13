@@ -1,12 +1,11 @@
-NO 			./img/n.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
 
-WE 															   ./img/w.xpm
-EA ./img/e.xpm
 
-                        F 0,   2 5 5  ,		0
-C 225,                                          30,0
-
-SO 									   ./img/s.xpm
+F 58,52,60
+C 34,30,44
 
         1111111111111111111111111
         1000000000110000000000001
